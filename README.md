@@ -112,14 +112,14 @@ sudo rmmod vmstat_kernel
 
 ### Пример вывода
 ```
-user@vbox:~/Desktop/OS-lab3/src$ vmstat 
+user@vbox:~/Desktop/OS-lab3/src$ vmstat
 procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
  r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
- 1  0      0 194184  36816 728272    0    0   958   207  451  510  9 17 73  0  0
-user@vbox:~/Desktop/OS-lab3/src$ ./vmstat_user 
-procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu------
- r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs  us sy id wa st
- 2  0      0 194184  36824 723904    0    0  1285   277   74    0  8 15 75  0  0
+ 2  0 727236  71408  82352 447188    8   76   184   203  445 1073  6  7 87  0  0
+user@vbox:~/Desktop/OS-lab3/src$ ./vmstat_user
+ -----------memory---------- ---swap-- -----io---- --system-- -----cpu------
+swpd   free   buff  cache   si   so    bi    bo   in   cs  us sy id wa st
+ 66506 193644  88516 542440 190711 8368 161095   626 347202    0  4  5 89  0  0
 ```
 
 ## Тестирование

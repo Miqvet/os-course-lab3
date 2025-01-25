@@ -33,23 +33,45 @@ ioctl: vmstat
 ### Структура данных
 ```c
 struct vmstat_data {
-    unsigned long procs_running;    // Количество запущенных процессов
-    unsigned long procs_blocked;    // Количество заблокированных процессов
-    unsigned long mem_swpd;         // Используемая память подкачки
-    unsigned long mem_free;         // Свободная память
-    unsigned long mem_buff;         // Буферизованная память
-    unsigned long mem_cache;        // Кэшированная память
-    unsigned long swap_si;          // Swap in
-    unsigned long swap_so;          // Swap out
-    unsigned long io_bi;            // Блоки, прочитанные с устройства
-    unsigned long io_bo;            // Блоки, записанные на устройство
-    unsigned long system_in;        // Прерывания в секунду
-    unsigned long system_cs;        // Переключения контекста в секунду
-    unsigned long cpu_us;          // Время CPU в пользовательском режиме
-    unsigned long cpu_sy;          // Время CPU в системном режиме
-    unsigned long cpu_id;          // Время CPU в простое
-    unsigned long cpu_wa;          // Время ожидания IO
-    unsigned long cpu_st;          // Время гипервизора
+    // Количество процессов в состоянии TASK_RUNNING
+    unsigned long procs_running;
+    // Количество процессов в состоянии TASK_UNINTERRUPTIBLE
+    unsigned long procs_blocked;
+    
+    // Количество свободных страниц свопа (через get_nr_swap_pages)
+    unsigned long mem_swpd;
+    // Количество свободной памяти в КБ (из si.freeram)
+    unsigned long mem_free;
+    // Размер буферов в КБ (из si.bufferram)
+    unsigned long mem_buff;
+    // Размер кэша файловой системы в КБ (из NR_FILE_PAGES)
+    unsigned long mem_cache;
+    
+    // Количество страниц, загруженных из свопа (PSWPIN)
+    unsigned long swap_si;
+    // Количество страниц, выгруженных в своп (PSWPOUT)
+    unsigned long swap_so;
+    
+    // Количество страниц, прочитанных с диска (PGPGIN)
+    unsigned long io_bi;
+    // Количество страниц, записанных на диск (PGPGOUT)
+    unsigned long io_bo;
+    
+    // Общее количество прерываний по всем CPU (сумма kstat_cpu_irqs_sum)
+    unsigned long system_in;
+    // Общее количество переключений контекста (сумма ctxt_switches)
+    unsigned long system_cs;
+    
+    // Процент времени CPU в пользовательском режиме (user + nice)
+    unsigned long cpu_us;
+    // Процент времени CPU в системном режиме (system + irq + softirq)
+    unsigned long cpu_sy;
+    // Процент времени CPU в режиме простоя (idle)
+    unsigned long cpu_id;
+    // Процент времени CPU в ожидании IO (iowait)
+    unsigned long cpu_wa;
+    // Процент времени CPU, украденного гипервизором (steal)
+    unsigned long cpu_st;
 };
 ```
 
